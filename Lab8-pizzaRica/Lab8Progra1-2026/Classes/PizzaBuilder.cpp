@@ -45,21 +45,12 @@ void PizzaBuilder::BuildPizza() {
 }
 
 void PizzaBuilder::IrAlSiguienteIngrediente() {
-    // 2 = queso, 3 = carnes, 4 = hierbas.
-    // Hoy ningún miembro ha conectado el suyo, así que cae en default.
     int siguiente = 2;
 
     switch (siguiente) {
     case 2:
-        // TODO queso: descomenta SelectCheese(). No pongas break:
-        // así el switch sigue hasta el default mientras no haya más ingredientes.
-        // SelectCheese();
     case 3:
-        // TODO carnes: descomenta SelectMeat(). No pongas break todavía.
-        // SelectMeat();
     case 4:
-        // TODO hierbas: descomenta SelectHerb(). No pongas break todavía.
-        // SelectHerb();
     default:
         std::cout << "No existen más ingredientes para tu pizza." << std::endl;
         break;
@@ -193,12 +184,3 @@ void PizzaBuilder::SelectCheese() {
         WaitForEnterAndClear();
     }
 }
-
-
-//void PizzaBuilder::SelectHerb() {
-//    // Resolver.
-//}
-//
-//void PizzaBuilder::SelectMeat() {
-//    // Resolver.
-//}
