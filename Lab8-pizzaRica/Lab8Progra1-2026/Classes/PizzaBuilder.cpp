@@ -39,6 +39,7 @@ void PizzaBuilder::BuildPizza() {
     std::cout << "¡Vamos a armar tu pizza!" << std::endl;
 
     SelectTomatoes();
+    SelectCheese();
     IrAlSiguienteIngrediente();
     WaitForEnterAndClear();
 }
@@ -165,15 +166,35 @@ void PizzaBuilder::SelectTomatoes() {
     }
 }
 
-// TODO:  Crear cada uno su parte. ☝️ toma el ejemplo de  SelectTomatoes y crea tu propia implementación.
-// Guarda lo elegido en selectedCheeses_, selectedMeats_ o selectedHerbs_.
-// En IrAlSiguienteIngrediente, descomenta la llamada de tu case.
+void PizzaBuilder::SelectCheese() {
+    IngredientSelector<CheeseRepository> selector(cheeseRepo_, availableCheeses_, "queso");
+
+    while (true) {
+        std::cout << "\n--- Selección de quesos ---" << std::endl;
+        selector.DisplayAvailableIngredients();
+
+        std::cout << "\nIngresa el tipo de queso (o 'listo' para terminar): ";
+        std::string userChoice;
+        std::getline(std::cin, userChoice);
+
+        if (userChoice == "listo" || userChoice == "LISTO") {
+            system("cls");
+            break;
+        }
+
+        bool exitosa = selector.AddIngredientToPizza(userChoice, selectedCheeses_);
+        if (exitosa) {
+            std::cout << "La selección fue exitosa." << std::endl;
+        }
+        else {
+            std::cout << "La selección no fue exitosa." << std::endl;
+        }
+
+        WaitForEnterAndClear();
+    }
+}
 
 
-//void PizzaBuilder::SelectCheese() {
-// // Resolver.
-//}
-//
 //void PizzaBuilder::SelectHerb() {
 //    // Resolver.
 //}

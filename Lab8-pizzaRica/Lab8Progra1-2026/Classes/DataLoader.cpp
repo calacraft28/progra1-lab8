@@ -58,3 +58,31 @@ DataLoader::LoadFromFile(const std::string& path) {
     }
     return result;
 }
+
+void DataLoader::SaveToFile(
+    const std::string& path,
+    const std::unordered_map<std::string, std::vector<std::string>>& data) {
+    std::ofstream out(path);
+    if (!out) {
+        out.clear();
+        out.open(std::string("Data\\") + path);
+    }
+    if (!out) {
+        out.clear();
+        out.open(std::string("Data/") + path);
+    }
+    if (!out) {
+        throw std::runtime_error("No se puede guardar el archivo: " + path);
+    }
+
+    for (const auto& entry : data) {
+        out << entry.first << ":";
+        for (std::size_t i = 0; i < entry.second.size(); ++i) {
+            if (i > 0) {
+                out << ", ";
+            }
+            out << " " << entry.second[i];
+        }
+        out << '\n';
+    }
+}
