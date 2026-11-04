@@ -21,4 +21,5 @@ void TomatoesRepository::UpdateQuantity(const std::string& tomatoType, int newQu
         throw std::invalid_argument("Tipo de tomate desconocido: " + tomatoType);
     }
     it->second[0] = std::to_string(newQuantity);
+    DataLoader::SaveToFile("tomatoes.txt", data_);
 }
