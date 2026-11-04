@@ -102,6 +102,8 @@ void PizzaBuilder::DisplayFinalPizza() const {
     case 1:
         if (!selectedTomatoes_.empty()) {
             std::cout << "Tu pizza solo tiene tomate." << std::endl;
+        } else if (!selectedCheeses_.empty()) {
+            std::cout << "Tu pizza solo tiene queso." << std::endl;
         } else {
             std::cout << "Tu pizza tiene un solo tipo de ingrediente." << std::endl;
         }
