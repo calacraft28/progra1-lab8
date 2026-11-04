@@ -40,6 +40,7 @@ void PizzaBuilder::BuildPizza() {
 
     SelectTomatoes();
     SelectCheese();
+    SelectMeats();
     IrAlSiguienteIngrediente();
     WaitForEnterAndClear();
 }
@@ -153,6 +154,34 @@ void PizzaBuilder::SelectTomatoes() {
                 system("cls");
                 return;
             }
+        }
+
+        WaitForEnterAndClear();
+    }
+}
+
+void PizzaBuilder::SelectMeats() {
+    IngredientSelector<MeatsRepository> selector(meatsRepo_, availableMeats_, "carne");
+
+    while (true) {
+        std::cout << "\n--- Selección de carnes ---" << std::endl;
+        selector.DisplayAvailableIngredients();
+
+        std::cout << "\nIngresa el tipo de carne (o 'listo' para terminar): ";
+        std::string userChoice;
+        std::getline(std::cin, userChoice);
+
+        if (userChoice == "listo" || userChoice == "LISTO") {
+            system("cls");
+            break;
+        }
+
+        bool exitosa = selector.AddIngredientToPizza(userChoice, selectedMeats_);
+        if (exitosa) {
+            std::cout << "La selección fue exitosa." << std::endl;
+        }
+        else {
+            std::cout << "La selección no fue exitosa." << std::endl;
         }
 
         WaitForEnterAndClear();
