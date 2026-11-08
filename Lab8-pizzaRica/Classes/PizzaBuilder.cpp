@@ -41,6 +41,7 @@ void PizzaBuilder::BuildPizza() {
     SelectTomatoes();
     SelectCheese();
     SelectMeats();
+    SelectHerbs();
     IrAlSiguienteIngrediente();
     WaitForEnterAndClear();
 }
@@ -105,8 +106,10 @@ void PizzaBuilder::DisplayFinalPizza() const {
             std::cout << "Tu pizza solo tiene tomate." << std::endl;
         } else if (!selectedCheeses_.empty()) {
             std::cout << "Tu pizza solo tiene queso." << std::endl;
+        } else if (!selectedMeats_.empty()) {
+            std::cout << "Tu pizza solo tiene carne." << std::endl;
         } else {
-            std::cout << "Tu pizza tiene un solo tipo de ingrediente." << std::endl;
+            std::cout << "Tu pizza solo tiene hierbas." << std::endl;
         }
         break;
     case 2:
@@ -124,7 +127,6 @@ void PizzaBuilder::DisplayFinalPizza() const {
 }
 
 void PizzaBuilder::SelectTomatoes() {
-    // TODO: Reusar esta linea, pero con su propio Repositorio.
     IngredientSelector<TomatoesRepository> selector(tomatoRepo_, availableTomatoes_, "tomate");
     bool yaPregunto = false;
 
@@ -214,4 +216,40 @@ void PizzaBuilder::SelectCheese() {
 
         WaitForEnterAndClear();
     }
+}
+
+void PizzaBuilder::SelectHerbs() {
+    IngredientSelector<HerbsRepository> selector(herbsRepo_, availableHerbs_, "hierba");
+
+    while (true) {
+        std::cout << "\n--- Selección de hierbas ---" << std::endl;
+        selector.DisplayAvailableIngredients();
+
+        std::cout << "\nIngresa el tipo de hierba (o 'listo' para terminar): ";
+        std::string userChoice;
+        std::getline(std::cin, userChoice);
+
+        if (userChoice == "listo" || userChoice == "LISTO") {
+            system("cls");
+            break;
+        }
+
+        bool exitosa = selector.AddIngredientToPizza(userChoice, selectedHerbs_);
+        if (exitosa) {
+            std::cout << "La selección fue exitosa." << std::endl;
+        }
+        else {
+            std::cout << "La selección no fue exitosa." << std::endl;
+        }
+
+        WaitForEnterAndClear();
+    }
+}
+
+void PizzaBuilder::SelectHerb() {
+    SelectHerbs();
+}
+
+void PizzaBuilder::SelectMeat() {
+    SelectMeats();
 }
